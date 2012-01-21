@@ -27,18 +27,13 @@ public class FirstPanel extends SequencePanel {
 		add(yes);
 		add(no);
 		JButton next = new JButton(basicButtons.getString("next"));
-		next.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				FirstPanel.this.parent.setPanel(getNextPanel());
-			}
-		});
+		next.addActionListener(nextListener);
 		addButton(next);
 	}
 
 	@Override
 	public SequencePanel getNextPanel() {
+		parent.feedCollector("firstTime", true);
 		return new SecondPanel(this, parent);
 	}
 

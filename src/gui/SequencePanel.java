@@ -20,11 +20,20 @@ public abstract class SequencePanel extends JPanel {
 	protected ResourceBundle basicButtons = MainWindow.basicButtons;
 	protected ResourceBundle textAreas = MainWindow.textAreas;
 	protected ResourceBundle menuItems = MainWindow.menuItems;
+	protected ActionListener nextListener;
+	private Box buttonBox;
 	
 	public SequencePanel(SequencePanel last, SwitchFrame parent) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.last = last;
 		this.parent = parent;
+		nextListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SequencePanel.this.parent.setPanel(getNextPanel());
+			}
+		};
 	}
 	/**
 	 * Adds a custom button to the button row at the bottom of the panel.
@@ -32,32 +41,34 @@ public abstract class SequencePanel extends JPanel {
 	 * @param button the rightmost custom button to be added
 	 */
 	public void addButton(JButton button) {
-		Box buttonBox = Box.createHorizontalBox();
-		ActionListener backListener = new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				parent.setPanel(last);
-			}
-		};
-		ActionListener mainMenuListener = new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				parent.dispose();
-			}
-		};
-		JButton back = new JButton(basicButtons.getString("back"));
-		back.addActionListener(backListener);
-		if(last == null)
-			back.setEnabled(false);
-		JButton mainMenu = new JButton(basicButtons.getString("mainMenu"));
-		mainMenu.addActionListener(mainMenuListener);
-		buttonBox.add(mainMenu);
-		buttonBox.add(back);
-		buttonBox.add(Box.createHorizontalGlue());
+		if(buttonBox == null) {
+			buttonBox = Box.createHorizontalBox();
+			ActionListener backListener = new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					parent.setPanel(last);
+				}
+			};
+			ActionListener mainMenuListener = new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					parent.dispose();
+				}
+			};
+			JButton back = new JButton(basicButtons.getString("back"));
+			back.addActionListener(backListener);
+			if(last == null)
+				back.setEnabled(false);
+			JButton mainMenu = new JButton(basicButtons.getString("mainMenu"));
+			mainMenu.addActionListener(mainMenuListener);
+			buttonBox.add(mainMenu);
+			buttonBox.add(back);
+			buttonBox.add(Box.createHorizontalGlue());
+			add(buttonBox);
+		}
 		buttonBox.add(button);
-		add(buttonBox);
 		align(this, LEFT_ALIGNMENT);
 	}
 	private void align(Component comp, float alignmentX) {
