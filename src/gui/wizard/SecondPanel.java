@@ -13,7 +13,7 @@ public class SecondPanel extends SequencePanel {
 	public SecondPanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
 		add(new TransparentTextArea(textAreas.getString("firmware")));
-		addButton(new JButton("dummy"));
+		addButton(new JButton("Test"));
 	}
 
 	@Override
