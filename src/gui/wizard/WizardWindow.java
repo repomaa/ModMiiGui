@@ -1,5 +1,6 @@
 package gui.wizard;
 
+import gui.SequencePanel;
 import gui.SwitchFrame;
 import javax.swing.JPanel;
 
@@ -13,7 +14,7 @@ public class WizardWindow extends SwitchFrame {
 		setPanel(getFirstPanel());
 		setVisible(true);
 	}
-	private JPanel getFirstPanel() {
+	private SequencePanel getFirstPanel() {
 		return new FirstPanel(null, this);
 	}
 }

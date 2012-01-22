@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Dimension;
+
 import javax.swing.JTextArea;
 import javax.swing.text.Document;
 
@@ -15,7 +17,6 @@ public class TransparentTextArea extends JTextArea {
 		setLineWrap(true);
 		setWrapStyleWord(true);
 	}
-
 	public TransparentTextArea(String text) {
 		this();
 		setText(text);
@@ -40,6 +41,12 @@ public class TransparentTextArea extends JTextArea {
 	public TransparentTextArea(Document doc, String text, int rows, int columns) {
 		super(text, rows, columns);
 		setDocument(doc);
+	}
+	@Override
+	public Dimension getPreferredSize() {
+		Dimension dim = super.getPreferredSize();
+		dim.setSize(dim.width, getLineCount() * getRowHeight());
+		return dim;
 	}
 
 }
