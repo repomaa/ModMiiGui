@@ -45,7 +45,8 @@ public class TransparentTextArea extends JTextArea {
 	@Override
 	public Dimension getPreferredSize() {
 		Dimension dim = super.getPreferredSize();
-		dim.setSize(dim.width, getLineCount() * getRowHeight());
+		int lines = getText().length() / getColumns() + 2;
+		dim.setSize(dim.width, lines * getRowHeight());
 		return dim;
 	}
 

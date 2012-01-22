@@ -14,12 +14,12 @@ import gui.TransparentTextArea;
 public class FirstPanel extends SequencePanel {
 	
 	private static final long serialVersionUID = -4396233122618654765L;
-
+	private JRadioButton yes;
 	public FirstPanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
 		add(new TransparentTextArea(textAreas.getString("firstTime")));
 		ButtonGroup yesNo = new ButtonGroup();
-		JRadioButton yes = new JRadioButton(basicButtons.getString("yes"));
+		yes = new JRadioButton(basicButtons.getString("yes"));
 		JRadioButton no = new JRadioButton(basicButtons.getString("no"));
 		yesNo.add(yes);
 		yesNo.add(no);
@@ -33,7 +33,7 @@ public class FirstPanel extends SequencePanel {
 
 	@Override
 	public SequencePanel getNextPanel() {
-		parent.feedCollector("firstTime", true);
+		parent.feedCollector("firstTime", yes.isSelected());
 		return new SecondPanel(this, parent);
 	}
 

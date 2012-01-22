@@ -16,4 +16,7 @@ public abstract class DataCollector {
 	public void digest(String key, Object data) {
 		this.data.put(key, data);
 	}
+	public Object get(String key) {
+		return data.get(key);
+	}
 }

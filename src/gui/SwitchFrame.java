@@ -18,6 +18,10 @@ public abstract class SwitchFrame extends JFrame {
 	public void feedCollector(String key, Object data) {
 		collector.digest(key, data);
 	}
+	@SuppressWarnings("unchecked")
+	public <T> T getData(String key) {
+		return (T)collector.get(key);
+	}
 	public void setPanel(SequencePanel panel) {
 		if(currentPanel != null)
 			remove(currentPanel);
