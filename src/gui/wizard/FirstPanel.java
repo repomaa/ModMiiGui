@@ -1,40 +1,31 @@
 package gui.wizard;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
+import javax.swing.Box;
 
 import gui.SequencePanel;
 import gui.SwitchFrame;
+import gui.Title;
 import gui.TransparentTextArea;
 
 public class FirstPanel extends SequencePanel {
 	
 	private static final long serialVersionUID = -4396233122618654765L;
-	private JRadioButton yes;
+	private YesNo yesNo;
 	public FirstPanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
+		add(new Title(labels.getString("firstTime")));
+		add(Box.createVerticalStrut(30));
 		add(new TransparentTextArea(textAreas.getString("firstTime")));
-		ButtonGroup yesNo = new ButtonGroup();
-		yes = new JRadioButton(basicButtons.getString("yes"));
-		JRadioButton no = new JRadioButton(basicButtons.getString("no"));
-		yesNo.add(yes);
-		yesNo.add(no);
-		yes.setSelected(true);
-		add(yes);
-		add(no);
-		JButton next = new JButton(basicButtons.getString("next"));
-		next.addActionListener(nextListener);
-		addButton(next);
+		yesNo = new YesNo();
+		yesNo.setYes(true);
+		add(yesNo);
+		addNextButton();
 	}
 
 	@Override
 	public SequencePanel getNextPanel() {
-		parent.feedCollector("firstTime", yes.isSelected());
-		return new SecondPanel(this, parent);
+		parent.feedCollector("firstTime", String.valueOf(yesNo.isYes()));
+		return new FirmwarePanel(this, parent);
 	}
 
 }

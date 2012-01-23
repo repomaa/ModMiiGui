@@ -1,5 +1,7 @@
 package gui;
 
+import gui.hackmiiSolutions.HackMiiSolutionsWindow;
+import gui.usbLoader.USBLoaderWindow;
 import gui.wizard.WizardWindow;
 
 import java.awt.Dimension;
@@ -10,18 +12,24 @@ import java.util.ResourceBundle;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * The main window of ModMiiGui. Displays all options, loads resource bundles i.e. translations
+ * @author Joakim Reinert
+ *
+ */
 public class MainWindow extends JFrame {
 	
 	private static final long serialVersionUID = 2740437090361841747L;
 	public static ResourceBundle menuItems;
 	public static ResourceBundle textAreas;
 	public static ResourceBundle basicButtons;
+	public static ResourceBundle messages;
+	public static ResourceBundle summary;
+	public static ResourceBundle tooltips;
+	public static ResourceBundle labels;
 	
 	/**
 	 * Initialize and draw the MainWindow
@@ -39,6 +47,10 @@ public class MainWindow extends JFrame {
 		menuItems = ResourceBundle.getBundle("resources.lang.MenuItems");
 		textAreas = ResourceBundle.getBundle("resources.lang.TextAreas");
 		basicButtons = ResourceBundle.getBundle("resources.lang.BasicButtons");
+		messages = ResourceBundle.getBundle("resources.lang.Messages");
+		summary = ResourceBundle.getBundle("resources.lang.Summary");
+		tooltips = ResourceBundle.getBundle("resources.lang.Tooltips");
+		labels = ResourceBundle.getBundle("resources.lang.labels");
 		for(JButton button : getMenuButtons())
 			panel.add(button);
 		add(panel);
@@ -98,18 +110,23 @@ public class MainWindow extends JFrame {
 	 * Open up the wizard window
 	 */
 	protected void openWizard() {
-		WizardWindow wizard = new WizardWindow();
+		new WizardWindow();
 	}
+	/**
+	 * Open up the USB-Loader wizard
+	 */
 	protected void openUSB() {
-		// TODO Auto-generated method stub
+		new USBLoaderWindow();
 		
 	}
+	/**
+	 * Open up HackMii solutions
+	 */
 	protected void openHack() {
-		// TODO Auto-generated method stub
-		
+		new HackMiiSolutionsWindow();
 	}
 	protected void openRegChange() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	protected void openSneek() {
@@ -129,6 +146,6 @@ public class MainWindow extends JFrame {
 		
 	}
 	public static void main(String[] args) {
-		MainWindow mw = new MainWindow();
+		new MainWindow();
 	}
 }

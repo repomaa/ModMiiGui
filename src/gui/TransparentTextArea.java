@@ -3,49 +3,42 @@ package gui;
 import java.awt.Dimension;
 
 import javax.swing.JTextArea;
-import javax.swing.text.Document;
 
+/**
+ * A subclass of JTextArea that has a transparent background,
+ * no editing, line wrapping and a customized getPreferredSize
+ * method for correct size calculation
+ * @author Joakim Reinert
+ *
+ */
 public class TransparentTextArea extends JTextArea {
 	
 	private static final long serialVersionUID = -1964588762171601325L;
 
-	public TransparentTextArea() {
-		super();
+	public TransparentTextArea(String text) {
+		super(text);
 		setOpaque(false);
 		setEditable(false);
 		setColumns(45);
 		setLineWrap(true);
 		setWrapStyleWord(true);
 	}
-	public TransparentTextArea(String text) {
-		this();
-		setText(text);
-	}
-
-	public TransparentTextArea(Document doc) {
-		this();
-		setDocument(doc);
-	}
-
-	public TransparentTextArea(int rows, int columns) {
-		this();
-		setRows(rows);
-		setColumns(columns);
-	}
-
-	public TransparentTextArea(String text, int rows, int columns) {
-		this(rows, columns);
-		setText(text);
-	}
-
-	public TransparentTextArea(Document doc, String text, int rows, int columns) {
-		super(text, rows, columns);
-		setDocument(doc);
-	}
 	@Override
 	public Dimension getPreferredSize() {
 		Dimension dim = super.getPreferredSize();
-		int lines = getText().length() / getColumns() + 2;
+		char[] text = getText().toCharArray();
+		int space = 0;
+		int charsSinceLB = 0;
+		for(char current : text)
+			if(current == '\n') {
+				space+=getColumns() - charsSinceLB;
+				charsSinceLB = 0;
+			}
+			else {
+				space++;
+				charsSinceLB++;
+			}
+		int lines = space / getColumns() + 2;
 		dim.setSize(dim.width, lines * getRowHeight());
 		return dim;
 	}
