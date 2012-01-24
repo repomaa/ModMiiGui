@@ -27,21 +27,7 @@ public class PathSelectionPanel extends SequencePanel {
 			usb = new PathSelector("usbPath");
 			add(usb);
 		}
-		final CommandLineArea cmda = new CommandLineArea();
-		add(cmda);
-		JButton modMii = new JButton("ModMii!");
-		modMii.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(sd != null)
-					parent.feedCollector("DRIVE:", sd.getPath() + "?");
-				if(usb != null)
-					parent.feedCollector("DRIVEU:", usb.getPath() + "?");
-				cmda.runCommand(parent.getCmd());				
-			}
-		});
-		addButton(modMii);
+		addNextButton();
 	}
 
 	@Override
@@ -56,8 +42,11 @@ public class PathSelectionPanel extends SequencePanel {
 
 	@Override
 	public SequencePanel getNextPanel() {
-		// TODO Auto-generated method stub
-		return null;
+		if(sd != null)
+			parent.feedCollector("sdPath", sd.getPath());
+		if(usb != null)
+			parent.feedCollector("usbPath", usb.getPath());
+		return new ConfirmationPanel(this, parent);
 	}
 	private class PathSelector extends JPanel {
 

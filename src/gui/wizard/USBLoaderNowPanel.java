@@ -1,6 +1,7 @@
 package gui.wizard;
 
 import gui.ConfirmationPanel;
+import gui.PathSelectionPanel;
 import gui.SequencePanel;
 import gui.SwitchFrame;
 import gui.usbLoader.FormatPanel;
@@ -23,7 +24,7 @@ public class USBLoaderNowPanel extends SequencePanel {
 			parent.feedCollector("usb", "USB");
 			return new FormatPanel(this, parent);
 		}
-		return new ConfirmationPanel(this, parent);
+		return new PathSelectionPanel(this, parent);
 	}
 
 	@Override

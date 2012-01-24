@@ -6,6 +6,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import gui.ConfirmationPanel;
+import gui.PathSelectionPanel;
 import gui.SequencePanel;
 import gui.SwitchFrame;
 import gui.TransparentTextArea;
@@ -51,7 +52,7 @@ public class SneekTypePanel extends SequencePanel {
 				break;
 			}
 		}
-		return new ConfirmationPanel(this, parent);
+		return new PathSelectionPanel(this, parent);
 	}
 
 	@Override

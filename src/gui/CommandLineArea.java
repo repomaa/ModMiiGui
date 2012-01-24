@@ -29,9 +29,9 @@ public class CommandLineArea extends JScrollPane {
 		Runtime runtime = Runtime.getRuntime();
 		try {
 			Process process = runtime.exec(command);
-			StreamGobbler errorGobler = new StreamGobbler(this, process.getErrorStream(), "ERROR");
-			StreamGobbler outputGobbler = new StreamGobbler(this, process.getInputStream(), "OUTPUT");
-			errorGobler.start();
+			//StreamGobbler errorGobler = new StreamGobbler(this, process.getErrorStream(), "ERROR");
+			StreamGobbler outputGobbler = new StreamGobbler(this, process.getInputStream());
+			//errorGobler.start();
 			outputGobbler.start();
 		} catch (IOException e) {
 			StringWriter sw = new StringWriter();
@@ -42,11 +42,9 @@ public class CommandLineArea extends JScrollPane {
 	}
 	private class StreamGobbler extends Thread {
 		InputStream in;
-		String type;
 		CommandLineArea invoker;
-		private StreamGobbler(CommandLineArea invoker, InputStream in, String type) {
+		private StreamGobbler(CommandLineArea invoker, InputStream in) {
 			this.in = in;
-			this.type = type;
 			this.invoker = invoker;
 		}
 		@Override
@@ -56,7 +54,7 @@ public class CommandLineArea extends JScrollPane {
 				BufferedReader br = new BufferedReader(isr);
 				String line = null;
 				while((line = br.readLine()) != null) {
-					invoker.showLine(type + ">" + line + "\n");
+					invoker.showLine(line + "\n");
 				}
 			}
 			catch (IOException e) {
@@ -66,5 +64,6 @@ public class CommandLineArea extends JScrollPane {
 	}
 	public void showLine(String string) {
 		cmd.append(string);
+		cmd.setCaretPosition(cmd.getText().length());
 	}
 }

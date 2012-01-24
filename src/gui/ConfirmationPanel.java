@@ -34,12 +34,19 @@ public class ConfirmationPanel extends SequencePanel {
 		});
 		addButton(save);
 		JButton confirm = new JButton(basicButtons.getString("confirm"));
-		confirm.addActionListener(nextListener);
+		confirm.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				removeAll();
+				validate();
+				CommandLineArea cmda = new CommandLineArea();
+				add(cmda);
+				revalidate();
+				cmda.runCommand(parent.getCmd());
+			}
+		});
 		addButton(confirm);
-	}
-	@Override
-	public SequencePanel getNextPanel() {
-		return new PathSelectionPanel(ConfirmationPanel.this, parent);
 	}
 	@Override
 	protected String getInfo() {
@@ -48,6 +55,11 @@ public class ConfirmationPanel extends SequencePanel {
 	@Override
 	protected String getTitle() {
 		return "confirm";
+	}
+	@Override
+	public SequencePanel getNextPanel() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -23,14 +23,17 @@ public abstract class DataCollector {
 	 * @return the Arguments
 	 */
 	public String getCmd() {
-		return "ModMii.exe " + getMode() + " " + args;
+		return "ModMii.bat " + getMode() + " " + args;
 	}
+	public abstract void parseOptions();
 	/**
 	 * Used to feed the collector with data
 	 * @param key - the key for the data
 	 * @param data - the data
 	 */
-	public abstract void digest(String key, String data);
+	public void digest(String key, String data) {
+		this.data.put(key, data);
+	}
 	/**
 	 * Returns the data for a given key
 	 * @param key - the key for the data
@@ -45,7 +48,6 @@ public abstract class DataCollector {
 	 */
 	@Override
 	public abstract String toString();
-	
 	/**
 	 * Sets the mode of the collector (e.g. W for wizard, U for USB, etc.)
 	 * @param mode - the mode to set

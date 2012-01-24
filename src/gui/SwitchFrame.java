@@ -77,4 +77,7 @@ public abstract class SwitchFrame extends JFrame {
 	public String getCmd() {
 		return collector.getCmd();
 	}
+	public void parseOptions() {
+		collector.parseOptions();
+	}
 }

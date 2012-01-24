@@ -5,7 +5,7 @@ import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
-import gui.ConfirmationPanel;
+import gui.PathSelectionPanel;
 import gui.SequencePanel;
 import gui.SwitchFrame;
 import gui.TransparentTextArea;
@@ -38,7 +38,7 @@ public class ConfigPanel extends SequencePanel {
 			parent.feedCollector("config", "USB");
 		else
 			parent.feedCollector("config", "SD");
-		return new ConfirmationPanel(this, parent);
+		return new PathSelectionPanel(this, parent);
 	}
 
 	@Override
