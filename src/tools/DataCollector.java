@@ -30,9 +30,7 @@ public abstract class DataCollector {
 	 * @param key - the key for the data
 	 * @param data - the data
 	 */
-	public void digest(String key, String data) {
-		this.data.put(key, data);
-	}
+	public abstract void digest(String key, String data);
 	/**
 	 * Returns the data for a given key
 	 * @param key - the key for the data
@@ -68,5 +66,14 @@ public abstract class DataCollector {
 	 */
 	protected void setArgs(String args) {
 		this.args = args;
+	}
+	public boolean needsSD() {
+		return true;
+	}
+	public boolean needsUSB() {
+		for(String value : data.values())
+			if(value.contains("USB") || value.contains("usb"))
+				return true;
+		return false;
 	}
 }

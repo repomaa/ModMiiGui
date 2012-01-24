@@ -10,7 +10,6 @@ public class FirmwarePanel extends gui.wizard.FirmwarePanel {
 
 	public FirmwarePanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
-		parent.feedCollector("firstTime", "false");
 	}
 	@Override
 	public SequencePanel getNextPanel() {

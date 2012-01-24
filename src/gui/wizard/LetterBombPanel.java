@@ -8,7 +8,6 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import gui.SequencePanel;
 import gui.SwitchFrame;
-import gui.TransparentTextArea;
 
 public class LetterBombPanel extends SequencePanel {
 
@@ -16,7 +15,6 @@ public class LetterBombPanel extends SequencePanel {
 
 	public LetterBombPanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
-		add(new TransparentTextArea(textAreas.getString("letterBombInstr")));
 		addNextButton();
 	}
 	@Override
@@ -40,6 +38,14 @@ public class LetterBombPanel extends SequencePanel {
 	@Override
 	public SequencePanel getNextPanel() {
 		return new ActiveIOSs(last, parent);
+	}
+	@Override
+	protected String getInfo() {
+		return "letterBombInstr";
+	}
+	@Override
+	protected String getTitle() {
+		return null;
 	}
 
 }

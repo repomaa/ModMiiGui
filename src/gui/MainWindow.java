@@ -1,9 +1,11 @@
 package gui;
 
 import gui.hackmiiSolutions.HackMiiSolutionsWindow;
+import gui.sneek.SneekWindow;
 import gui.usbLoader.USBLoaderWindow;
 import gui.wizard.WizardWindow;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,20 +32,49 @@ public class MainWindow extends JFrame {
 	public static ResourceBundle summary;
 	public static ResourceBundle tooltips;
 	public static ResourceBundle labels;
+	private ActionListener menuListener;
 	
 	/**
 	 * Initialize and draw the MainWindow
 	 */
 	public MainWindow() {
-		super("ModMiiGui");
+		init();
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		Component beforeBtns = getContentBeforeBtns();
+		if(beforeBtns != null)
+			panel.add(beforeBtns);
+		JButton[] buttons = getMenuButtons();
+		for(JButton button : buttons)
+			panel.add(button);
+		Component afterBtns = getContentAfterBtns();
+		if(afterBtns != null)
+			panel.add(afterBtns);
+		resizeButtonsAndSetListener(panel.getComponents(), menuListener);
+		SequencePanel.align(panel, LEFT_ALIGNMENT);
+		add(panel);
+		pack();
+		setVisible(true);
+	}
+	protected Component getContentAfterBtns() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	protected Component getContentBeforeBtns() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	/**
+	 * Called from the constructor to initialize the frame
+	 */
+	protected void init() {
+		setTitle("ModMiiGui");
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		menuItems = ResourceBundle.getBundle("resources.lang.MenuItems");
 		textAreas = ResourceBundle.getBundle("resources.lang.TextAreas");
 		basicButtons = ResourceBundle.getBundle("resources.lang.BasicButtons");
@@ -51,12 +82,7 @@ public class MainWindow extends JFrame {
 		summary = ResourceBundle.getBundle("resources.lang.Summary");
 		tooltips = ResourceBundle.getBundle("resources.lang.Tooltips");
 		labels = ResourceBundle.getBundle("resources.lang.labels");
-		for(JButton button : getMenuButtons())
-			panel.add(button);
-		add(panel);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		pack();
-		setVisible(true);
 	}
 	/**
 	 * Creates the main menu buttons
@@ -73,7 +99,7 @@ public class MainWindow extends JFrame {
 		final JButton conf = new JButton(menuItems.getString("conf"));
 		final JButton fileCleanup = new JButton(menuItems.getString("fileCleanup"));
 		JButton[] buttons = new JButton[] {wizard, usb, hack, sysCheck, regChange, sneek, downloads, conf, fileCleanup};
-		ActionListener menuListener = new ActionListener() {
+		menuListener = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -96,15 +122,18 @@ public class MainWindow extends JFrame {
 					openFileCleanup();
 			}
 		};
+		return buttons;
+	}
+	protected void resizeButtonsAndSetListener(Component[] components, ActionListener menuListener) {
 		int maxWidth = 0;
-		for(JButton current : buttons) {
+		for(Component current : components) {
 			if(current.getPreferredSize().width > maxWidth)
 				maxWidth = current.getPreferredSize().width;
-			current.addActionListener(menuListener);
+			if(current instanceof JButton)
+				((JButton)current).addActionListener(menuListener);
 		}
-		for(JButton current : buttons)
+		for(Component current : components)
 			current.setMaximumSize(new Dimension(maxWidth, current.getPreferredSize().height));
-		return buttons;
 	}
 	/**
 	 * Open up the wizard window
@@ -130,8 +159,7 @@ public class MainWindow extends JFrame {
 		
 	}
 	protected void openSneek() {
-		// TODO Auto-generated method stub
-		
+		new SneekWindow();
 	}
 	protected void openDownloads() {
 		// TODO Auto-generated method stub

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 /**
@@ -17,10 +16,8 @@ public class ConfirmationPanel extends SequencePanel {
 
 	private static final long serialVersionUID = 3690785804007617642L;
 	
-	public ConfirmationPanel(SequencePanel last, SwitchFrame parent) {
+	public ConfirmationPanel(SequencePanel last, final SwitchFrame parent) {
 		super(last, parent);
-		add(new Title(labels.getString("confirm")));
-		add(Box.createVerticalStrut(30));
 		add(new TransparentTextArea(parent.getData().toString()));
 		JButton save = new JButton(menuItems.getString("saveForLater"));
 		save.addActionListener(new ActionListener() {
@@ -37,19 +34,20 @@ public class ConfirmationPanel extends SequencePanel {
 		});
 		addButton(save);
 		JButton confirm = new JButton(basicButtons.getString("confirm"));
-		confirm.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
+		confirm.addActionListener(nextListener);
 		addButton(confirm);
 	}
 	@Override
 	public SequencePanel getNextPanel() {
-		// TODO Auto-generated method stub
+		return new PathSelectionPanel(ConfirmationPanel.this, parent);
+	}
+	@Override
+	protected String getInfo() {
 		return null;
+	}
+	@Override
+	protected String getTitle() {
+		return "confirm";
 	}
 
 }

@@ -12,7 +12,6 @@ import javax.swing.JRadioButton;
 
 import gui.SequencePanel;
 import gui.SwitchFrame;
-import gui.Title;
 
 public class ThemePanel extends SequencePanel {
 
@@ -20,8 +19,6 @@ public class ThemePanel extends SequencePanel {
 	private Theme[] theme;
 	public ThemePanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
-		add(new Title(labels.getString("theme")));
-		add(Box.createVerticalStrut(30));
 		ButtonGroup theme = new ButtonGroup();
 		JRadioButton red = new JRadioButton("DarkWii " + menuItems.getString("redTheme"));
 		JRadioButton green = new JRadioButton("DarkWii " + menuItems.getString("greenTheme"));
@@ -134,5 +131,13 @@ public class ThemePanel extends SequencePanel {
 			for(JRadioButton current : effect)
 				current.setEnabled(value);
 		}
+	}
+	@Override
+	protected String getInfo() {
+		return null;
+	}
+	@Override
+	protected String getTitle() {
+		return "theme";
 	}
 }

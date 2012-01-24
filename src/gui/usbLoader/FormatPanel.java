@@ -2,13 +2,11 @@ package gui.usbLoader;
 
 import java.awt.Font;
 
-import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import gui.SequencePanel;
 import gui.SwitchFrame;
-import gui.Title;
 import gui.TransparentTextArea;
 
 public class FormatPanel extends SequencePanel {
@@ -17,8 +15,6 @@ public class FormatPanel extends SequencePanel {
 	private JRadioButton[] format;
 	public FormatPanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
-		add(new Title(labels.getString("usbFormat")));
-		add(Box.createVerticalStrut(30));
 		ButtonGroup formats = new ButtonGroup();
 		JRadioButton fat = new JRadioButton("FAT32 (" + menuItems.getString("recommended") + ")");
 		fat.setSelected(true);
@@ -67,6 +63,16 @@ public class FormatPanel extends SequencePanel {
 				break;
 			}
 		return new LoaderPanel(this, parent);
+	}
+
+	@Override
+	protected String getInfo() {
+		return null;
+	}
+
+	@Override
+	protected String getTitle() {
+		return "usbFormat";
 	}
 
 }

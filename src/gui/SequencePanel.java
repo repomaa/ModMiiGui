@@ -49,7 +49,20 @@ public abstract class SequencePanel extends JPanel {
 				SequencePanel.this.parent.setPanel(getNextPanel());
 			}
 		};
+		addTitleAndInfo();
 	}
+	private void addTitleAndInfo() {
+		String title = getTitle();
+		if(title != null) {
+			add(new Title(labels.getString(title)));
+			add(Box.createVerticalStrut(30));
+		}
+		String info = getInfo();
+		if(info != null)
+			add(new TransparentTextArea(textAreas.getString(info)));
+	}
+	protected abstract String getInfo();
+	protected abstract String getTitle();
 	/**
 	 * Adds the default Next button. It will point to the SequencePanel
 	 * defined in getNextPanel
@@ -99,7 +112,7 @@ public abstract class SequencePanel extends JPanel {
 	 * @param comp - the component to start from
 	 * @param alignmentX - the desired x alignment
 	 */
-	private void align(Component comp, float alignmentX) {
+	public static void align(Component comp, float alignmentX) {
 		if(comp instanceof Container)
 			for(Component current : ((Container)comp).getComponents())
 				align(current, alignmentX);

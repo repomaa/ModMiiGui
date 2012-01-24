@@ -2,14 +2,12 @@ package gui.usbLoader;
 
 import java.awt.Font;
 
-import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import gui.ConfirmationPanel;
 import gui.SequencePanel;
 import gui.SwitchFrame;
-import gui.Title;
 import gui.TransparentTextArea;
 
 public class ConfigPanel extends SequencePanel {
@@ -18,8 +16,6 @@ public class ConfigPanel extends SequencePanel {
 	private JRadioButton usb;
 	public ConfigPanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
-		add(new Title(labels.getString("usbCfgFiles")));
-		add(Box.createVerticalStrut(30));
 		ButtonGroup locations = new ButtonGroup();
 		usb = new JRadioButton("USB " + "(" + menuItems.getString("recommended") + ")");
 		usb.setSelected(true);
@@ -43,6 +39,16 @@ public class ConfigPanel extends SequencePanel {
 		else
 			parent.feedCollector("config", "SD");
 		return new ConfirmationPanel(this, parent);
+	}
+
+	@Override
+	protected String getInfo() {
+		return null;
+	}
+
+	@Override
+	protected String getTitle() {
+		return "usbCfgFiles";
 	}
 
 }

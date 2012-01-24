@@ -68,4 +68,13 @@ public abstract class SwitchFrame extends JFrame {
 	public String getData() {
 		return collector.toString();
 	}
+	public boolean needsSD() {
+		return collector.needsSD();
+	}
+	public boolean needsUSB() {
+		return collector.needsUSB();
+	}
+	public String getCmd() {
+		return collector.getCmd();
+	}
 }

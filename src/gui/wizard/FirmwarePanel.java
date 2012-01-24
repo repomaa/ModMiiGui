@@ -4,13 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URISyntaxException;
 
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import gui.SequencePanel;
 import gui.SwitchFrame;
-import gui.Title;
-import gui.TransparentTextArea;
 
 public class FirmwarePanel extends SequencePanel {
 
@@ -18,9 +15,6 @@ public class FirmwarePanel extends SequencePanel {
 	private JComboBox firmware;
 	public FirmwarePanel(SequencePanel last, SwitchFrame parent) {
 		super(last, parent);
-		add(new Title(labels.getString("firmware")));
-		add(Box.createVerticalStrut(30));
-		add(new TransparentTextArea(textAreas.getString("firmware")));
 		String[] firmStrings = new String[] {"4.3","4.2","4.1","4.0","3.0-3.5",menuItems.getString("other") + " (" + menuItems.getString("under") + " 2.2)"};
 		firmware = new JComboBox(firmStrings);
 		add(firmware);
@@ -57,6 +51,16 @@ public class FirmwarePanel extends SequencePanel {
 			firmware = "O";
 		parent.feedCollector("firmware", firmware);
 		return new RegionPanel(this, parent);
+	}
+
+	@Override
+	protected String getInfo() {
+		return "firmware";
+	}
+
+	@Override
+	protected String getTitle() {
+		return "firmware";
 	}
 
 }
